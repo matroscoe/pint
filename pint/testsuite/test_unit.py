@@ -17,18 +17,18 @@ from pint.util import ParserHelper, UnitsContainer
 
 # TODO: do not subclass from QuantityTestCase
 class TestUnit(QuantityTestCase):
-    def test_creation(self):
+    def test_creation(self, benchmark):
         for arg in ("meter", UnitsContainer(meter=1), self.U_("m")):
-            assert self.U_(arg)._units == UnitsContainer(meter=1)
+            assert self.U_(arg)._units == benchmark(UnitsContainer, meter=1)
         with pytest.raises(TypeError):
             self.U_(1)
 
-    def test_deepcopy(self):
-        x = self.U_(UnitsContainer(meter=1))
+    def test_deepcopy(self, benchmark):
+        x = benchmark(self.U_, UnitsContainer(meter=1))
         assert x == copy.deepcopy(x)
 
-    def test_unit_repr(self):
-        x = self.U_(UnitsContainer(meter=1))
+    def test_unit_repr(self, benchmark):
+        x = benchmark(self.U_, UnitsContainer(meter=1))
         assert str(x) == "meter"
         assert repr(x) == "<Unit('meter')>"
 

@@ -44,7 +44,9 @@ test = [
     "pytest",
     "pytest-mpl",
     "pytest-cov",
-    "pytest-subtests"
+    "pytest-subtests",
+    "pytest-benchmark",
+    "pytest-socket"
 ]
 numpy = ["numpy >= 1.19.5"]
 uncertainties = ["uncertainties >= 3.1.6"]
@@ -89,3 +91,8 @@ ignore = [
 ]
 extend-exclude = ["build"]
 line-length=88
+
+[tool.pytest.ini_options]
+minversion = "7.3"
+testpaths = [ "pint", ]
+addopts = "-p no:pastebin -p no:nose -p no:doctest --disable-socket --benchmark-save=pint"
