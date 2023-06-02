@@ -30,12 +30,10 @@ jobs:
       TEST_OPTS: "-rfsxEX -s --cov=pint --cov-config=.coveragerc"
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 100
+      - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -66,8 +64,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt install -y graphviz
-          pip install pytest pytest-cov pytest-subtests packaging
-          pip install .
+          pip install -e '.[test]'
 
       - name: Install pytest-mpl
         if: contains(matrix.extras, 'matplotlib')
