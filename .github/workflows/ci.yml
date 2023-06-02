@@ -34,9 +34,6 @@ jobs:
         with:
           fetch-depth: 100
 
-      - name: Get tags
-        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
